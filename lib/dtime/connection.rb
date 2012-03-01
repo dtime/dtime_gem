@@ -54,7 +54,7 @@ module Dtime
           builder.use Faraday::Request::JSON
           builder.use Faraday::Request::Multipart
           builder.use Faraday::Request::UrlEncoded
-          builder.use Faraday::Response::Logger
+          # builder.use Faraday::Response::Logger
 
           # Dtime::Connection::Response.faraday_build(builder, options)
           builder.use Dtime::Connection::Request::OAuth2, oauth_token if oauth_token?
