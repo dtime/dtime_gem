@@ -64,7 +64,7 @@ module Dtime
 
     # Check whether basic authentication credentials are present
     def basic_authed?
-      basic_auth? || (login? && password?)
+      (login? && password?)
     end
 
     # Select authentication parameters

@@ -10,6 +10,8 @@ module Dtime
   # Connection is included into the Client class.
   module Connection
 
+    attr_accessor :last_response
+
   private
 
     def header_options() # :nodoc:
@@ -25,6 +27,7 @@ module Dtime
 
     def clear_cache # :nodoc:
       @connection = nil
+      @last_response = nil
     end
 
     def caching? # :nodoc:

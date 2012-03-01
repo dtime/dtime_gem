@@ -34,7 +34,9 @@ module Dtime
         request(:delete, path, params, options)
       end
 
+
       def request(method, path, params, options)
+        path = use_rel_for_paths(path)
         if !METHODS.include?(method)
           raise ArgumentError, "unkown http method: #{method}"
         end
@@ -49,10 +51,20 @@ module Dtime
             request.body = MultiJson.encode(params) unless params.empty?
           end
         end
+        self.last_response = response.body
         response.body
       end
 
       private
+
+      def use_rel_for_paths(path)
+        if last_response? && path =~ /^[^\/]/
+          if link = last_response.link_for(path)
+            path = link.href
+          end
+        end
+        path
+      end
 
       def basic_auth(login, password) # :nodoc:
         auth = Base64.encode("#{login}:#{password}")

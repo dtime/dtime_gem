@@ -1,0 +1,12 @@
+{
+  "links": [
+    {
+      "href": "https://api.dtime.com/docs",
+      "rel":  "documentation"
+    },
+    {
+      "href": "https://api.dtime.com/user",
+      "rel":  "user"
+    }
+  ]
+}

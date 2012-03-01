@@ -37,6 +37,11 @@ module Dtime
           loaded? ? @env[:body] : nil
         end
 
+        def link_for(rel)
+          loaded? ?
+            @env[:body][:links].detect{|l| l["rel"] == rel} : nil
+        end
+
         def loaded?
           !!env
         end
