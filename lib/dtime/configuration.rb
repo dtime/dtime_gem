@@ -13,8 +13,7 @@ module Dtime
       :user_agent,
       :connection_options,
       :login,
-      :password,
-      :basic_auth
+      :password
     ].freeze
 
     # Other adapters are :typhoeus, :patron, :em_synchrony, :excon, :test
@@ -34,9 +33,6 @@ module Dtime
 
     # By default, don't set a user password
     DEFAULT_PASSWORD = nil
-
-    # By default, don't set a user basic authentication
-    DEFAULT_BASIC_AUTH = nil
 
     # The endpoint used to connect to Dtime if none is set
     DEFAULT_ENDPOINT = 'https://api.dtime.com'.freeze
@@ -78,7 +74,6 @@ module Dtime
       self.mime_type          = DEFAULT_MIME_TYPE
       self.login              = DEFAULT_LOGIN
       self.password           = DEFAULT_PASSWORD
-      self.basic_auth         = DEFAULT_BASIC_AUTH
       self
     end
 

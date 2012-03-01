@@ -5,8 +5,8 @@
 
 ## Credits:
 
-Substantial portions of this gem are based on the way the Github v3 api gem
-by Piotr Murach is built:
+Substantial portions of this gem are based the Github v3 api gem
+by Piotr Murach:
 
 http://github.com/peter-murach/github
 
