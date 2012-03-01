@@ -29,5 +29,15 @@ module Dtime
       end
       oauth_client if client_id? && client_secret?
     end
+
+    # Responds to attribute query
+    def method_missing(method, *args, &block) # :nodoc:
+      if method.to_s =~ /^(.*)\?$/
+        return !self.send($1.to_s).nil?
+      else
+        super
+      end
+    end
+
   end # Client
 end # Dtime

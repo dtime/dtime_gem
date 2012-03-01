@@ -93,17 +93,6 @@ describe Dtime::OAuthAuthorization do
       dtime.should respond_to :authentication
     end
 
-    context 'basic_auth' do
-      before do
-        dtime = Dtime.new :basic_auth => 'dtime:pass'
-      end
-
-      it "should return hash with basic auth params" do
-        dtime.authentication.should be_a Hash
-        dtime.authentication.should have_key :basic_auth
-      end
-    end
-
     context 'login & password' do
       before do
         dtime = Dtime.new :login => 'dtime', :password => 'pass'

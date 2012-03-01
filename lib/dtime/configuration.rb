@@ -42,7 +42,7 @@ module Dtime
     DEFAULT_ENDPOINT = 'https://api.dtime.com'.freeze
 
     # The value sent in the http header for 'User-Agent' if none is set
-    DEFAULT_USER_AGENT = "Dtime Ruby Gem #{Dtime::VERSION::STRING}".freeze
+    DEFAULT_USER_AGENT = "Dtime Ruby Gem #{Dtime::VERSION}".freeze
 
     # By default the <tt>Accept</tt> header will make a request for <tt>JSON</tt>
     DEFAULT_MIME_TYPE = :json
