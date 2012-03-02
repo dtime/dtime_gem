@@ -80,7 +80,7 @@ module Dtime
 
     # Verifies the client_id and secret are provided, also resets the
     # oauth authorizations endpoint if it has been changed.
-    def _verify_client(endpoint = "https://www.dtime.com") # :nodoc:
+    def _verify_client(endpoint = "https://api.dtime.com") # :nodoc:
       raise ArgumentError, 'Need to provide client_id and client_secret' unless client_id? && client_secret?
       unless @client_endpoint == endpoint
         @oauth_client = nil

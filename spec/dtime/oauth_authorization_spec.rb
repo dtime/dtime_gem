@@ -12,21 +12,21 @@ describe Dtime::OAuthAuthorization do
   end
 
   it "should assign site from the options hash" do
-    dtime.oauth_client.site.should == 'https://www.dtime.com'
+    dtime.oauth_client.site.should == 'https://api.dtime.com'
   end
 
   it "should assign 'authorize_url" do
-    dtime.oauth_client.authorize_url.should == 'https://www.dtime.com/oauth/authorize'
+    dtime.oauth_client.authorize_url.should == 'https://api.dtime.com/oauth/authorize'
   end
 
   it "should assign 'token_url" do
-    dtime.oauth_client.token_url.should == 'https://www.dtime.com/oauth/access_token'
+    dtime.oauth_client.token_url.should == 'https://api.dtime.com/oauth/access_token'
   end
 
   context "authorize_url" do
-    before do
-      dtime = Dtime.new :client_id => client_id, :client_secret => client_secret
-    end
+    let(:dtime){
+      Dtime.new :client_id => client_id, :client_secret => client_secret
+    }
 
     it "should respond to 'authorize_url' " do
       dtime.should respond_to :authorize_url
@@ -46,9 +46,11 @@ describe Dtime::OAuthAuthorization do
   end
 
   context "get_token" do
-    before do
+    let(:dtime){
       dtime = Dtime.new :client_id => client_id, :client_secret => client_secret
-      stub_request(:post, 'https://www.dtime.com/oauth/access_token').
+    }
+    before do
+      stub_request(:post, 'https://api.dtime.com/oauth/access_token').
         to_return(:body => '', :status => 200, :headers => {})
     end
 
@@ -59,7 +61,7 @@ describe Dtime::OAuthAuthorization do
     it "should make the authorization request" do
       expect {
         dtime.get_token code
-        a_request(:post, "https://www.dtime.com/oauth/access_token").should have_been_made
+        a_request(:post, "https://api.dtime.com/oauth/access_token").should have_been_made
       }.to raise_error(OAuth2::Error)
     end
 
@@ -69,9 +71,11 @@ describe Dtime::OAuthAuthorization do
   end
 
   context "get_client_token" do
-    before do
+    let(:dtime){
       dtime = Dtime.new :client_id => client_id, :client_secret => client_secret
-      stub_request(:post, 'https://www.dtime.com/oauth/access_token').
+    }
+    before do
+      stub_request(:post, 'https://api.dtime.com/oauth/access_token').
         to_return(:body => '', :status => 200, :headers => {})
     end
 
@@ -82,7 +86,7 @@ describe Dtime::OAuthAuthorization do
     it "should make the authorization request" do
       expect {
         dtime.get_client_token
-        a_request(:post, "https://www.dtime.com/oauth/access_token").should have_been_made
+        a_request(:post, "https://api.dtime.com/oauth/access_token").should have_been_made
       }.to raise_error(OAuth2::Error)
     end
 
@@ -94,7 +98,7 @@ describe Dtime::OAuthAuthorization do
     end
 
     context 'login & password' do
-      before do
+      let(:dtime) do
         dtime = Dtime.new :login => 'dtime', :password => 'pass'
       end
 
