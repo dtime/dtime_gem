@@ -11,18 +11,9 @@ module Dtime
         dependency 'oauth2'
 
         def call(env)
-          puts "ENV: #{env.inspect}"
-          puts "TOKEN : #{@token}"
-          puts "APP: #{@app}"
-
-          # Extract parameters from the query
-          params = env[:url].query_values || {}
-
-          env[:url].query_values = { 'oauth_token' => @token }.merge(params)
-
           token = env[:url].query_values['oauth_token']
 
-          env[:request_headers].merge!('Authorization' => "OAuth #{token}")
+          env[:request_headers].merge!('Authorization' => "OAuth #{@options}")
 
           @app.call env
         end

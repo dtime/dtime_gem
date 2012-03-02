@@ -16,7 +16,7 @@ module Dtime
       Configuration::VALID_OPTIONS_KEYS.each do |key|
         define_method "#{key}=" do |arg|
           self.instance_variable_set("@#{key}", arg)
-          Dtime.send("#{key}=", arg)
+          # Dtime.send("#{key}=", arg)
         end
       end
     end
@@ -28,6 +28,11 @@ module Dtime
         send("#{key}=", options[key])
       end
       oauth_client if client_id? && client_secret?
+    end
+
+    def oauth_token=(t)
+      self.clear_cached_connection if self.cached_connection?
+      @oauth_token = t
     end
 
     # Responds to attribute query

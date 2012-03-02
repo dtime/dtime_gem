@@ -8,8 +8,8 @@ module Dtime
     attr_accessor :client_endpoint
 
     # Setup OAuth2 instance
-    def oauth_client(endpoint = "https://www.dtime.com")
-      @client_endpoint ||= endpoint
+    def oauth_client(endpoint = nil)
+      @client_endpoint ||= (endpoint || self.endpoint)
       @oauth_client ||= ::OAuth2::Client.new(client_id, client_secret,
         :site          => @client_endpoint,
         :authorize_url => 'oauth/authorize',

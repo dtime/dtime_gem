@@ -12,6 +12,18 @@ module Dtime
 
     attr_accessor :last_response
 
+    # Returns true if a faraday connection stack has been built
+    def cached_connection?
+      !@connection.nil?
+    end
+
+    # Allow a fresh connection to be created next api call
+    # Also removes last response
+    def clear_cached_connection
+      @connection = nil
+      @last_response = nil
+    end
+
   private
 
     def header_options() # :nodoc:
@@ -25,15 +37,6 @@ module Dtime
       }
     end
 
-    def clear_cache # :nodoc:
-      @connection = nil
-      @last_response = nil
-    end
-
-    def caching? # :nodoc:
-      !@connection.nil?
-    end
-
     def connection(options = {}) # :nodoc:
 
       # parse(options['resource'], options['mime_type'] || mime_type) if options['mime_type']
@@ -44,7 +47,7 @@ module Dtime
 #       end
       merged_options = header_options.merge(options)
 
-      clear_cache unless options.empty?
+      clear_cached_connection unless options.empty?
 
       @connection ||= begin
         Faraday.new(merged_options) do |builder|
@@ -68,6 +71,7 @@ module Dtime
           builder.adapter adapter
         end
       end
+      @connection
     end
 
   end # Connection

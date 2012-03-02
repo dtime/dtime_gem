@@ -28,7 +28,8 @@ module Dtime
         end
 
         def response_message(env)
-          "#{env[:method].to_s.upcase} #{env[:url].to_s}: #{env[:status]}#{env[:body]}"
+          msg = env[:body].respond_to?(:message) ? env[:body].message : env[:body]
+          "#{env[:method].to_s.upcase} #{env[:url].to_s}: #{env[:status]}#{msg}"
         end
 
       end # Response::RaiseError
