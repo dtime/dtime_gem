@@ -16,9 +16,9 @@ module Dtime
         def initialize(app, *args)
           @app = app
           credentials = ""
-          options = args.last.is_a?(Hash) ? args.pop : {}
-          if options.has_key? :login
-            credentials = "#{options[:login]}:#{options[:password]}"
+          opts = args.last.is_a?(Hash) ? args.pop : {}
+          if opts.has_key? :login
+            credentials = "#{opts[:login]}:#{opts[:password]}"
           end
           @auth = Base64.encode64(credentials)
           @auth.gsub!("\n", "")

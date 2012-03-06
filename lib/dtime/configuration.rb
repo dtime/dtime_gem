@@ -1,9 +1,9 @@
 module Dtime
   # Class for handling api configuration options
-  # and making them available at Dtime.options
+  # and making them available at Dtime.config
   module Configuration
 
-    VALID_OPTIONS_KEYS = [
+    VALID_CONFIG_KEYS = [
       :adapter,
       :client_id,
       :client_secret,
@@ -46,7 +46,7 @@ module Dtime
     # By default uses the Faraday connection options if none is set
     DEFAULT_CONNECTION_OPTIONS = {}
 
-    attr_accessor *VALID_OPTIONS_KEYS
+    attr_accessor *VALID_CONFIG_KEYS
 
     # Convenience method to allow for global setting of configuration options
     def configure
@@ -57,10 +57,8 @@ module Dtime
       base.set_defaults
     end
 
-    def options
-      options = {}
-      VALID_OPTIONS_KEYS.each { |k| options[k] = send(k) }
-      options
+    def config
+      VALID_CONFIG_KEYS.inject({}) { |acc, k| acc[k] = send(k); acc }
     end
 
     def set_defaults

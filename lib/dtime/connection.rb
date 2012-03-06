@@ -37,7 +37,7 @@ module Dtime
       }
     end
 
-    def connection(options = {}) # :nodoc:
+    def connection(opts = {}) # :nodoc:
 
       # parse(options['resource'], options['mime_type'] || mime_type) if options['mime_type']
 #       merged_options = if connection_options.empty?
@@ -45,14 +45,12 @@ module Dtime
 #       else
 #         connection_options.merge(header_options)
 #       end
-      merged_options = header_options.merge(options)
+      merged_options = header_options.merge(opts)
 
-      clear_cached_connection unless options.empty?
+      clear_cached_connection unless opts.empty?
 
       @connection ||= begin
         Faraday.new(merged_options) do |builder|
-
-          puts options.inspect
 
           builder.use Faraday::Request::JSON
           builder.use Faraday::Request::Multipart

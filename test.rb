@@ -7,6 +7,6 @@ def client_token
 end
 
 @root = Dtime.new(:oauth_token => client_token.token)
-@anon = Dtime.new()
+@anon = @d = Dtime.new()
 
 

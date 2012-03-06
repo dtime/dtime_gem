@@ -10,7 +10,11 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |config|
   config.include WebMock::API
+  config.before do
+    Dtime.set_defaults
+  end
 end
+
 
 def stub_get(path, endpoint = Dtime.endpoint.to_s)
   stub_request(:get, endpoint + path)

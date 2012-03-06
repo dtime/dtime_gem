@@ -24,6 +24,9 @@ module Dtime
   # Raised when Dtime returns the HTTP status code 403
   class Forbidden < Error; end
 
+  # Raised when an unknown rel is requested
+  class UnknownRel < Error; end
+
   # Raised when Dtime returns the HTTP status code 404
   class ResourceNotFound < Error; end
 

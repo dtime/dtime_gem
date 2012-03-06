@@ -37,9 +37,13 @@ module Dtime
           loaded? ? @env[:body] : nil
         end
 
+        def template
+          loaded? ? @env[:body][:template] : nil
+        end
+
         def link_for(rel)
           loaded? ?
-            @env[:body][:links].detect{|l| l["rel"] == rel} : nil
+            @env[:body][:links].detect{|l| l["rel"].split.include?(rel)} : nil
         end
 
         def loaded?
