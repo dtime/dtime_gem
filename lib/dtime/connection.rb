@@ -62,8 +62,7 @@ module Dtime
           builder.use Dtime::Connection::Request::BasicAuth, authentication if basic_authed?
 
           builder.use Dtime::Connection::Response::Helpers::Middleware
-          builder.use Dtime::Connection::Response::Mashify
-          builder.use Dtime::Connection::Response::Jsonize
+          builder.use Dtime::Connection::Response::Halify
 
           builder.use Dtime::Connection::Response::RaiseError
           builder.adapter adapter

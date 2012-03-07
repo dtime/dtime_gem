@@ -31,12 +31,8 @@ module Dtime
       oauth_client if client_id? && client_secret?
     end
 
-    def user
-      resources.create_for_link('user')
-    end
-
-    def users
-      resources.create_for_link('users')
+    def home
+      self.get('/')
     end
 
     def resources
@@ -54,6 +50,8 @@ module Dtime
     def method_missing(method, *args, &block)
       if method.to_s =~ /^(.*)\?$/
         return !self.send($1.to_s).nil?
+      elsif link = self.link_for_rel(method)
+        resources.create_for_link(link)
       else
         super
       end

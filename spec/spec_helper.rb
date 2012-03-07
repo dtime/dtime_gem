@@ -20,6 +20,10 @@ def stub_get(path, endpoint = Dtime.endpoint.to_s)
   stub_request(:get, endpoint + path)
 end
 
+def stub_opts(path, endpoint = Dtime.endpoint.to_s)
+  stub_request(:options, endpoint + path)
+end
+
 def stub_post(path, endpoint = Dtime.endpoint.to_s)
   stub_request(:post, endpoint + path)
 end

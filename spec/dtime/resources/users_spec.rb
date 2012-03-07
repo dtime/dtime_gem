@@ -1,27 +1,14 @@
 require 'spec_helper'
 
-describe Dtime::Resources::Resource do
+describe Dtime::Resources::Users do
   let(:client) do
     Dtime::Client.new
   end
-  let(:link) do
-    Hashie::Mash.new(href: 'https://api.dtime.com/docs', rel: 'documentation')
+  let(:user_hash) do
+    {email: "example@example.com", password:'123', password_confirmation:'123', username:'foobar'}
   end
-  describe 'with a non-existent rel' do
-    before do
-      stub_get("/").
-        to_return(:body => fixture('index/public.json'),
-          :status => 200,
-          :headers => {
-            :content_type => "application/json; charset=utf-8"
-          })
-    end
-    let(:subject) do
-      Dtime::Resources::Resource.new(client, 'foobar')
-    end
-    it 'has no root' do
-      subject.root.should be_nil
-    end
+  let(:user_build) do
+    subject.build(user_hash)
   end
   describe 'with a template' do
     before do
@@ -37,10 +24,11 @@ describe Dtime::Resources::Resource do
           :headers => {
             :content_type => "application/json; charset=utf-8"
           })
+      client.get('/')
     end
-    let(:subject) do
-      Dtime::Resources::Resource.new(client, 'users')
-    end
+    subject { Dtime::Resources::Resource.new(client, 'users') }
+
+
     let(:expected_build) do
       Hashie::Mash.new({email: nil, password:nil, password_confirmation:nil, username:nil})
     end
@@ -57,6 +45,12 @@ describe Dtime::Resources::Resource do
     end
     context 'fetched' do
       before do
+        stub_post("/users").
+          to_return(:body => fixture('users/user.json'),
+            :status => 201,
+            :headers => {
+              :content_type => "application/json; charset=utf-8"
+            })
         stub_get("/users").
           to_return(:body => fixture('users/index.json'),
             :status => 200,
@@ -74,34 +68,22 @@ describe Dtime::Resources::Resource do
       it 'can build an object' do
         subject.build()
       end
+      it "can't post a blank object" do
+        lambda{
+          subject.post
+        }.should raise_error(Dtime::TemplateMismatch)
+      end
+      it "can post a hash" do
+        lambda{
+          subject.post(user_hash)
+        }.should_not raise_error
+      end
+      it "can post a previously built object" do
+        lambda{
+          subject.post(user_build)
+        }.should_not raise_error
+      end
     end
   end
-  describe 'with a real rel' do
-    before do
-      stub_get("/").
-        to_return(:body => fixture('index/public.json'),
-          :status => 200,
-          :headers => {
-            :content_type => "application/json; charset=utf-8"
-          })
-    end
-    let(:subject) do
-      Dtime::Resources::Resource.new(client, 'documentation')
-    end
-    it 'has a root' do
-      subject.root.should == link
-    end
-  end
-  describe 'with an already defined link' do
-    let(:subject) do
-      Dtime::Resources::Resource.new(client, link)
-    end
-    it 'has a root' do
-      subject.root.should == link
-    end
-  end
-
-
-
 end
 

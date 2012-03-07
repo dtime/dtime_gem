@@ -29,7 +29,8 @@ module Dtime
       def create_for_link(link)
         link = turn_rel_into_link(link)
         rel = link.rel.split.first
-        case rel
+        return @last_resource if rel == 'self' && @last_resource
+        resource = case rel
         when 'user'
           Dtime::Resources::User.new(client, link)
         when 'users'
@@ -37,6 +38,8 @@ module Dtime
         else
           Dtime::Resources::Resource.new(client, link)
         end
+        @last_resource = resource
+        resource
       end
     end
   end

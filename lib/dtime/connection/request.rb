@@ -74,6 +74,14 @@ module Dtime
         end
       end
 
+      def links
+        if last_response && last_response._links?
+          last_response._links
+        else
+          nil
+        end
+      end
+
       # Fetches a link for a given rel
       # if the rel doesn't start with a slash and
       # there was a previous request to fetch a link from

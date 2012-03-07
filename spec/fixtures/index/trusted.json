@@ -1,12 +1,13 @@
 {
-  "links": [
-    {
-      "href": "https://api.dtime.com/docs",
-      "rel":  "documentation"
+  "_links": {
+    "self": {
+      "href": "https://api.dtime.com/"
     },
-    {
-      "href": "https://api.dtime.com/users",
-      "rel":  "users"
+    "documentation" : {
+      "href": "https://api.dtime.com/docs"
+    },
+    "users" : {
+      "href": "https://api.dtime.com/users"
     }
-  ]
+  }
 }
