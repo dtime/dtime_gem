@@ -26,6 +26,9 @@ module Dtime
         @template
       end
 
+
+      # Creates a link object for a given rel, or returns nil if
+      # one does not exist
       def link_for(rel)
         Dtime::Hypermedia::Link.new(self[:_links][rel].merge(rel: rel)) if self[:_links][rel]
       end

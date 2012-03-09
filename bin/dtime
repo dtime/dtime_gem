@@ -1,0 +1,84 @@
+#!/usr/bin/env ruby
+
+# Try loading bundler if it's possible
+begin
+  require 'bundler/setup'
+rescue LoadError
+  # no problem
+end
+
+# Try loading bundler if it's possible
+begin
+  require 'highline'
+rescue LoadError
+  warn "The dtime binary requires highline to be installed."
+  warn "Please run: gem install highline"
+  exit
+end
+
+# Add lib to load path
+$LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + '/../lib'))
+
+# Load dtime
+require 'dtime'
+require "commander/import"
+# :name is optional, otherwise uses the basename of this executable
+program :name, 'dtime command line client'
+program :version, '1.0.0'
+program :description, 'A command line client for interacting with the dtime api'
+
+default_command :console
+
+command :console do |c|
+  c.option '--endpoint ENDPOINT', String, 'Set the dtime api endpoint (for testing)'
+  c.action do |args, options|
+    options.default \
+      :endpoint => "https://api.dtime.com"
+    command_loop!(initialize!(options))
+    puts 'goodbye!'
+  end
+end
+
+
+def initialize!(options)
+  Dtime.new({
+    endpoint: options.endpoint
+  })
+end
+def command_loop!(client)
+  @client = client
+  @client.home
+
+  loop do
+    available_commands = %w{exit quit get}
+    say "Available Links"
+    @client.links.each do |rel, link|
+      say "\t#{rel}"
+      available_commands.push(rel)
+    end
+
+    cmd = ask("Enter command:  ", available_commands) do |q|
+      q.readline = true
+    end
+    case cmd
+    when "quit", "exit"
+      say("Executing \"#{cmd}\"...")
+      break
+    when /get (.*)/
+      begin
+        @client.get(@client.links[$1]).get
+      rescue Dtime::Unauthorized => e
+        say "You aren't allowed to access that resource"
+      end
+    when *@client.links.keys
+      begin
+        @client.get(@client.links[cmd])
+      rescue Dtime::Unauthorized => e
+        say "You aren't allowed to access that resource"
+      end
+    else
+      say "Command not understood"
+    end
+  end
+end
+
