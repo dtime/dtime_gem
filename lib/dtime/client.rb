@@ -35,6 +35,10 @@ module Dtime
       self.get('/')
     end
 
+    def follow(rel)
+      resources.create_for_link(rel)
+    end
+
     def resources
       @factory ||= Resources::ResourceFactory.new(self)
     end

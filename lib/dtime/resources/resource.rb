@@ -27,6 +27,8 @@ module Dtime
 
 
       def template(force = false)
+        # Template can be included in a link for easier access
+        @template ||= @root.to_template
         return @template if @template
 
         options if force

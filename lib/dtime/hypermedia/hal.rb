@@ -13,10 +13,6 @@ module Dtime
       def initialize(*args)
         super
 
-        # Turn links into links
-        self.fetch('_links', {}).each do |k, v|
-          self['_links'][k] = Dtime::Hypermedia::Link.new(v.merge(rel: k))
-        end
 
         # It is an argument error to create a hal hash with an empty links array
         raise ArgumentError if self._links? && !self.link_for('self')
@@ -31,7 +27,22 @@ module Dtime
       end
 
       def link_for(rel)
-        self[:_links][rel]
+        Dtime::Hypermedia::Link.new(self[:_links][rel].merge(rel: rel)) if self[:_links][rel]
+      end
+
+
+
+      # The body of a result should be wrapped into a result object.
+      # If it is and the requested key is defined in it,
+      # we pass any method missing on to result
+      def method_missing(name, *args)
+        if self.has_key?(name)
+          super
+        elsif self.has_key?(:result) && self[:result].respond_to?(:has_key?) && self[:result].has_key?(name)
+          self[:result].send(name, *args)
+        else
+          super
+        end
       end
     end
   end

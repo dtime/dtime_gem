@@ -41,6 +41,13 @@ module Dtime
     end
 
     # Makes request to token endpoint and retrieves access token value
+    def get_basic_token(params = {})
+      authentication.merge(params)
+      self.home
+      self.follow('login').post(params)
+    end
+
+    # Makes request to token endpoint and retrieves access token value
     def get_token(authorization_code, params = {})
       _verify_client(params.delete(:endpoint))
       oauth_client.auth_code.get_token(authorization_code, params)
