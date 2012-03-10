@@ -24,7 +24,7 @@ describe Dtime::Connection::Request do
 
   %w(head put post get delete patch options).each do |i|
     it "responds to #{i}" do
-      dtime.should respond_to(i)
+      dtime.should respond_to("_#{i}")
     end
   end
 
@@ -50,7 +50,7 @@ describe Dtime::Connection::Request do
 
 
   context "second request" do
-    before { dtime.get('/') }
+    before { dtime.get }
     it "sets the last response" do
       dtime.last_response.should_not be_nil
     end
@@ -60,12 +60,17 @@ describe Dtime::Connection::Request do
     end
     it "can use rel to drive next response" do
       lambda{
-        dtime.get('user')
+        dtime._get('user')
       }.should_not raise_error
     end
     it "can use a link object to drive next response" do
       lambda{
-        dtime.get(dtime.link_for_rel('user'))
+        dtime._get(dtime.link_for_rel('user'))
+      }.should_not raise_error
+    end
+    it "can use follow on rel to get next response" do
+      lambda{
+        dtime.follow('user').get
       }.should_not raise_error
     end
   end

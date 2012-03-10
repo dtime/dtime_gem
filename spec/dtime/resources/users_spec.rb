@@ -24,7 +24,7 @@ describe Dtime::Resources::Users do
           :headers => {
             :content_type => "application/json; charset=utf-8"
           })
-      client.get('/')
+      client.get
     end
     subject { Dtime::Resources::Resource.new(client, 'users') }
 

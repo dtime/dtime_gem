@@ -14,35 +14,35 @@ module Dtime
       METHODS = [:get, :post, :put, :delete, :patch, :options, :head]
       METHODS_WITH_BODIES = [ :post, :put, :patch ]
 
-      def get(path, params={}, opts={})
-        request(:get, path, params, opts)
+      def _get(path, params={}, opts={})
+        _request(:get, path, params, opts)
       end
 
-      def patch(path, params={}, opts={})
-        request(:patch, path, params, opts)
+      def _patch(path, params={}, opts={})
+        _request(:patch, path, params, opts)
       end
 
-      def head(path, params={}, opts={})
-        request(:head, path, params, opts)
+      def _head(path, params={}, opts={})
+        _request(:head, path, params, opts)
       end
 
-      def options(path, params={}, opts={})
-        request(:options, path, params, opts)
+      def _options(path, params={}, opts={})
+        _request(:options, path, params, opts)
       end
 
-      def post(path, params={}, opts={})
-        request(:post, path, params, opts)
+      def _post(path, params={}, opts={})
+        _request(:post, path, params, opts)
       end
 
-      def put(path, params={}, opts={})
-        request(:put, path, params, opts)
+      def _put(path, params={}, opts={})
+        _request(:put, path, params, opts)
       end
 
-      def delete(path, params={}, opts={})
-        request(:delete, path, params, opts)
+      def _delete(path, params={}, opts={})
+        _request(:delete, path, params, opts)
       end
 
-      def request(method, path, params, opts)
+      def _request(method, path, params, opts)
         path = get_path_for(path)
         if !METHODS.include?(method)
           raise ArgumentError, "unkown http method: #{method}"
@@ -67,7 +67,7 @@ module Dtime
         if last_response?
           last_response.link_for(rel)
         elsif force
-          get('/')
+          self._get('/')
           last_response.link_for(rel)
         else
           nil

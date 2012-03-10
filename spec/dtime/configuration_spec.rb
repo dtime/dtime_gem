@@ -12,7 +12,7 @@ describe Dtime::Configuration do
       @dtime = Dtime.new :client_id => client_id, :client_secret => client_secret
       stub_get('/').
         to_return(:body => '', :status => 200, :headers => {})
-      @dtime.get('/')
+      @dtime.get
     end
 
     it "have a cached connection " do

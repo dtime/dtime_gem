@@ -4,7 +4,7 @@ describe Dtime::Connection::Response::Helpers do
 
   let(:dtime) { Dtime.new }
   # FIXME - Old reference
-  let(:res)    { dtime.get('/') }
+  let(:res)    { dtime.home }
 
   before do
     stub_get("/").

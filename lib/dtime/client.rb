@@ -7,6 +7,7 @@ module Dtime
     include OAuthAuthorization
     include Connection
     include Connection::Request
+    extend Forwardable
 
     attr_reader *Configuration::VALID_CONFIG_KEYS
 
@@ -29,14 +30,24 @@ module Dtime
         send("#{key}=",   opts[key])
       end
       oauth_client if client_id? && client_secret?
+      @current_resource = follow(Dtime::Hypermedia::Link.new(rel: 'home', href: self.endpoint))
     end
+
+    attr_accessor :current_resource
 
     def home
-      self.get('/')
+      @current_resource = follow(Dtime::Hypermedia::Link.new(rel: 'home', href: self.endpoint))
+      self.get
     end
 
+
+    #
+    # Pass HTTP methods to the current resource
+    #
+    def_instance_delegators :@current_resource, :get, :post, :options, :head, :put, :delete, :patch
+
     def follow(rel)
-      resources.create_for_link(rel)
+      @current_resource = resources.create_for_link(rel)
     end
 
     def resources
@@ -55,7 +66,7 @@ module Dtime
       if method.to_s =~ /^(.*)\?$/
         return !self.send($1.to_s).nil?
       elsif link = self.link_for_rel(method)
-        resources.create_for_link(link)
+        self.follow(link)
       else
         super
       end

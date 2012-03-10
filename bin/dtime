@@ -50,35 +50,45 @@ def command_loop!(client)
   @client.home
 
   loop do
-    available_commands = %w{exit quit get}
+    verbs = %w(get post patch put options head)
+    available_links = []
     say "Available Links"
     @client.links.each do |rel, link|
-      say "\t#{rel}"
-      available_commands.push(rel)
+      say "\t#{rel} (#{link.href.gsub(@client.endpoint, '')})"
+      available_links.push(rel)
     end
 
-    cmd = ask("Enter command:  ", available_commands) do |q|
-      q.readline = true
-    end
-    case cmd
-    when "quit", "exit"
-      say("Executing \"#{cmd}\"...")
-      break
-    when /get (.*)/
-      begin
-        @client.get(@client.links[$1]).get
-      rescue Dtime::Unauthorized => e
-        say "You aren't allowed to access that resource"
+    choose("> ") do |menu|
+      menu.readline = true
+      menu.shell = true
+      menu.prompt = ">  "
+      menu.index = :none
+      menu.layout = "#{@prompt}"
+
+      menu.choice("quit"){ say "Goodbye"; exit }
+      verbs.each do |v|
+        menu.choice(v){|cmd, opts|
+          link = @client.link_for_rel(opts)
+          if link
+            execute(cmd, @client.link_for_rel(opts))
+          else
+            say "Please choose from available links"
+          end
+        }
       end
-    when *@client.links.keys
-      begin
-        @client.get(@client.links[cmd])
-      rescue Dtime::Unauthorized => e
-        say "You aren't allowed to access that resource"
+      available_links.each do |l|
+        menu.choice(l){|cmd, opts|
+          execute(:get, @client.link_for_rel(cmd))
+        }
       end
-    else
-      say "Command not understood"
     end
   end
+end
+
+def execute(cmd, link)
+  @client.follow(link)
+  @client.send(cmd)
+rescue Dtime::Error => e
+  say e.message
 end
 

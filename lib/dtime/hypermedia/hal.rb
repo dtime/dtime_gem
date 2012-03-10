@@ -13,7 +13,6 @@ module Dtime
       def initialize(*args)
         super
 
-
         # It is an argument error to create a hal hash with an empty links array
         raise ArgumentError if self._links? && !self.link_for('self')
 

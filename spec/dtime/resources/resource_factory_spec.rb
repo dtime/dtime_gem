@@ -21,7 +21,13 @@ describe Dtime::Resources::ResourceFactory do
   let(:users_resource) do
     subject.create_for_link('users')
   end
+  let(:link_users_resource) do
+    subject.create_for_link(Dtime::Hypermedia::Link.new(rel:'users'))
+  end
 
+  it 'can create a subclass for a given rel' do
+    link_users_resource.should be_a(Dtime::Resources::Users)
+  end
   it 'can create a subclass for a given rel' do
     user_resource.should be_a(Dtime::Resources::User)
   end

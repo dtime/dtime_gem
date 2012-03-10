@@ -18,10 +18,10 @@ module Dtime
 
       # Get may raise a 404
       def get
-        @response = client.get(@root)
+        @response = client._get(@root)
       end
       def options
-        @response = client.options(@root)
+        @response = client._options(@root)
       end
 
 
@@ -50,7 +50,7 @@ module Dtime
       def post(*args)
         object = build(*args)
         object.validate!
-        client.post(@root, object)
+        client._post(@root, object)
       end
 
     end
