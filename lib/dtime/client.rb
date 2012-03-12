@@ -45,6 +45,10 @@ module Dtime
     # Pass HTTP methods to the current resource
     #
     def_instance_delegators :@current_resource, :get, :post, :options, :head, :put, :delete, :patch
+    #
+    # Pass build and template to current resource
+    #
+    def_instance_delegators :@current_resource, :template, :build
 
     def follow(rel)
       @current_resource = resources.create_for_link(rel)

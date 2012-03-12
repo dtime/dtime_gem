@@ -31,9 +31,11 @@ default_command :console
 
 command :console do |c|
   c.option '--endpoint ENDPOINT', String, 'Set the dtime api endpoint (for testing)'
+  c.option '--token OAUTH_TOKEN', String, 'Set the current dtime oauth token'
   c.action do |args, options|
     options.default \
-      :endpoint => "https://api.dtime.com"
+      :endpoint => "https://api.dtime.com",
+      :token => false
     command_loop!(initialize!(options))
     puts 'goodbye!'
   end
@@ -42,7 +44,8 @@ end
 
 def initialize!(options)
   Dtime.new({
-    endpoint: options.endpoint
+    endpoint: options.endpoint,
+    oauth_token: options.token
   })
 end
 def command_loop!(client)
@@ -52,9 +55,9 @@ def command_loop!(client)
   loop do
     verbs = %w(get post patch put options head)
     available_links = []
-    say "Available Links"
+    say "Available Links (** has template options)"
     @client.links.each do |rel, link|
-      say "\t#{rel} (#{link.href.gsub(@client.endpoint, '')})"
+      say "\t#{rel} (#{link.href.gsub(@client.endpoint, '')})#{link.respond_to?(:data) ? "**" : ""}"
       available_links.push(rel)
     end
 
@@ -66,6 +69,10 @@ def command_loop!(client)
       menu.layout = "#{@prompt}"
 
       menu.choice("quit"){ say "Goodbye"; exit }
+      menu.choice("exit"){ say "Goodbye"; exit }
+      menu.choice("home"){
+        @client.home
+      }
       verbs.each do |v|
         menu.choice(v){|cmd, opts|
           link = @client.link_for_rel(opts)
@@ -87,8 +94,27 @@ end
 
 def execute(cmd, link)
   @client.follow(link)
-  @client.send(cmd)
-rescue Dtime::Error => e
-  say e.message
+  begin
+    if cmd == "post" || cmd == "patch"
+      say "Please input the following info (* required)"
+
+      obj = @client.build
+      @client.template.fields.each do |f|
+        has_default = !(f.value.nil? || f.value =~ /^[\s]*$/)
+        prompt =  %[#{"<%= color('*', :red) %>" if f.required}#{(f.prompt || f.name)}#{"<%= color('[#{f.value}]', :grey) %>" if has_default}]
+        obj[f.name] = ask prompt do |a|
+          a.default = f.value
+          if f.name =~ /password$/
+            a.echo = "*"
+          end
+        end
+      end
+      @client.send(cmd, obj)
+    else
+      @client.send(cmd)
+    end
+  rescue Dtime::Error => e
+    say e.message
+  end
 end
 
