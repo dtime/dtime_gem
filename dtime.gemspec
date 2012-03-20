@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = '[none]'
 
   s.add_dependency 'hashie', '~> 1.2.0'
-  s.add_dependency 'faraday', '~> 0.7.4'
+  s.add_dependency 'faraday', '~> 0.8.0.rc2'
   s.add_dependency 'multi_json', '~> 1.0.3'
   s.add_dependency 'oauth2', '~> 0.5.0'
 
