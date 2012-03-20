@@ -75,7 +75,7 @@ module Dtime
     def method_missing(method, *args, &block)
       if method.to_s =~ /^(.*)\?$/
         return !self.send($1.to_s).nil?
-      elsif link = self.link_for_rel(method)
+      elsif link = self.link_for_rel(method.to_s)
         self.follow(link)
       else
         super
