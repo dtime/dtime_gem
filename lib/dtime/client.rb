@@ -35,8 +35,11 @@ module Dtime
 
     attr_accessor :current_resource
 
-    def home
+    def root
       @current_resource = follow(Dtime::Hypermedia::Link.new(rel: 'home', href: self.endpoint))
+    end
+    def home
+      self.root
       self.get
     end
 

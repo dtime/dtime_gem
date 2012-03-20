@@ -1,4 +1,5 @@
 require 'faraday'
+require 'faraday_middleware'
 require 'dtime/connection/response'
 require 'dtime/connection/request'
 
