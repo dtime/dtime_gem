@@ -52,7 +52,7 @@ module Dtime
       @connection ||= begin
         Faraday.new(merged_options) do |builder|
 
-          builder.use Faraday::Request::JSON
+          builder.use FaradayMiddleware::ParseJson
           builder.use Faraday::Request::Multipart
           builder.use Faraday::Request::UrlEncoded
           # builder.use Faraday::Response::Logger
