@@ -30,13 +30,13 @@ module Dtime
         send("#{key}=",   opts[key])
       end
       oauth_client if client_id? && client_secret?
-      @current_resource = follow(Dtime::Hypermedia::Link.new(rel: 'home', href: self.endpoint))
+      @current_resource = follow(Dtime::Hypermedia::Link.new(rel: 'root', href: self.endpoint))
     end
 
     attr_accessor :current_resource
 
     def root
-      @current_resource = follow(Dtime::Hypermedia::Link.new(rel: 'home', href: self.endpoint))
+      @current_resource = follow(Dtime::Hypermedia::Link.new(rel: 'root', href: self.endpoint))
     end
     def home
       self.root
