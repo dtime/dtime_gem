@@ -37,11 +37,12 @@ module Dtime
 
     # Navigates home, returns self for chaining with next call
     def root
-      @current_resource = follow(Dtime::Hypermedia::Link.new(rel: 'root', href: self.endpoint))
+      self.home
       self
     end
+
     def home
-      self.root
+      @current_resource = follow(Dtime::Hypermedia::Link.new(rel: 'root', href: self.endpoint))
       self.get
     end
 
