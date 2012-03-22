@@ -29,7 +29,7 @@ module Dtime
 
         def response_message(env)
           msg = env[:body].respond_to?(:message) ? env[:body].message : env[:body]
-          if Dtime.verbose_errors?
+          if Dtime.verbose_errors
             "#{env[:method].to_s.upcase} #{env[:url].to_s}: #{env[:status]} #{msg}"
           else
             msg
