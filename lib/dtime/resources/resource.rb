@@ -49,6 +49,14 @@ module Dtime
       #
       def post(*args)
         object = build(*args)
+        client._post(@root, object)
+      end
+
+      # May raise a 422 - unprocessable
+      # May raise TemplateMismatch
+      #
+      def post!(*args)
+        object = build(*args)
         object.validate!
         client._post(@root, object)
       end

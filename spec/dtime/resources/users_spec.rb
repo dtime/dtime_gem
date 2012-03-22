@@ -70,12 +70,17 @@ describe Dtime::Resources::Users do
       end
       it "can't post a blank object" do
         lambda{
-          subject.post
+          subject.post!
         }.should raise_error(Dtime::TemplateMismatch)
+      end
+      it "can doesn't raise blank error" do
+        lambda{
+          subject.post
+        }.should_not raise_error(Dtime::TemplateMismatch)
       end
       it "can post a hash" do
         lambda{
-          subject.post(user_hash)
+          subject.post!(user_hash)
         }.should_not raise_error
       end
       it "can post a previously built object" do
