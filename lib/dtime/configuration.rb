@@ -12,6 +12,7 @@ module Dtime
       :mime_type,
       :user_agent,
       :connection_options,
+      :verbose_errors,
       :login,
       :password
     ].freeze
@@ -72,6 +73,7 @@ module Dtime
       self.mime_type          = DEFAULT_MIME_TYPE
       self.login              = DEFAULT_LOGIN
       self.password           = DEFAULT_PASSWORD
+      self.verbose_errors     = false
       self
     end
 
