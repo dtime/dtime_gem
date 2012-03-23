@@ -14,9 +14,10 @@ module Dtime
 
 
       # Find the link for a given rel from the client's last request
-      def turn_rel_into_link(rel)
+      # Opts, if provided, will be used for a uri template
+      def turn_rel_into_link(rel, opts = {})
         return rel if rel.respond_to?(:rel)
-        ret = client.link_for_rel(rel, true)
+        ret = client.link_for_rel(rel, opts.merge(:force => true))
         raise Dtime::UnknownRel.new("Rel '#{rel}' not recognized", {}) unless ret
         ret
       end
@@ -26,8 +27,8 @@ module Dtime
       # link object with rel and href attributes
       #
       # May raise an UnknownRel error if an rel is not defined
-      def create_for_link(link)
-        link = turn_rel_into_link(link)
+      def create_for_link(link, opts = {})
+        link = turn_rel_into_link(link, opts)
         rel = link.rel.split.first
         return @last_resource if rel == 'self' && @last_resource
         resource = case rel

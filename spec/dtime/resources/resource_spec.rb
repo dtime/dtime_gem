@@ -5,7 +5,7 @@ describe Dtime::Resources::Resource do
     Dtime::Client.new
   end
   let(:link) do
-    Hashie::Mash.new(href: 'https://api.dtime.com/docs', rel: 'documentation')
+    Hashie::Mash.new(href: 'https://api.dtime.com/docs', rel: 'documentation', uri_opts: {})
   end
   describe 'with a non-existent rel' do
     before do

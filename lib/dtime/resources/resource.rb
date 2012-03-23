@@ -8,7 +8,7 @@ module Dtime
           @root = link
         else
           # Get rel, fetch from index page if necessary
-          @root = client.link_for_rel(link, true) if link
+          @root = client.link_for_rel(link, force: true) if link
         end
         if response
           @response = response

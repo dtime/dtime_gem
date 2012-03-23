@@ -63,12 +63,13 @@ module Dtime
 
       # Get a link for a given rel.
       # Pass force to get a link from the homepage when nothing has been fetched
-      def link_for_rel(rel, force = false)
+      def link_for_rel(rel, opts = {})
+        force = opts.delete(:force)
         if last_response?
-          last_response.link_for(rel)
+          last_response.link_for(rel, opts)
         elsif force
           self._get('/')
-          last_response.link_for(rel)
+          last_response.link_for(rel, opts)
         else
           nil
         end

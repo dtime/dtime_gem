@@ -41,7 +41,7 @@ describe Dtime::Connection::Request do
       dtime.last_response.should be_nil
     end
     it "will get the index for link objects if forced" do
-      link = dtime.link_for_rel('user', true)
+      link = dtime.link_for_rel('user', force: true)
       dtime.last_response.should_not be_nil
       link.href.should =~ %r{/user$}
     end

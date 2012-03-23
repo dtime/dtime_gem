@@ -28,8 +28,12 @@ module Dtime
 
       # Creates a link object for a given rel, or returns nil if
       # one does not exist
-      def link_for(rel)
-        Dtime::Hypermedia::Link.new(self[:_links][rel].merge(rel: rel)) if self[:_links][rel]
+      def link_for(rel, opts = {})
+        if self[:_links][rel]
+          l = Dtime::Hypermedia::Link.new(self[:_links][rel].merge(rel: rel))
+          l.uri_opts = opts
+          l
+        end
       end
 
 

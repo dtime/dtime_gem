@@ -56,8 +56,8 @@ module Dtime
     #
     def_instance_delegators :@current_resource, :template, :build
 
-    def follow(rel)
-      @current_resource = resources.create_for_link(rel)
+    def follow(rel, opts = {})
+      @current_resource = resources.create_for_link(rel, opts)
     end
 
     def resources
@@ -76,7 +76,7 @@ module Dtime
       if method.to_s =~ /^(.*)\?$/
         return !self.send($1.to_s).nil?
       elsif link = self.link_for_rel(method.to_s)
-        self.follow(link)
+        self.follow(link, args.first)
       else
         super
       end
