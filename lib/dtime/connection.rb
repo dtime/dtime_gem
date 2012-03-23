@@ -54,8 +54,9 @@ module Dtime
         Faraday.new(merged_options) do |builder|
 
           builder.use FaradayMiddleware::ParseJson
-          builder.use Faraday::Request::Multipart
-          builder.use Faraday::Request::UrlEncoded
+          builder.use FaradayMiddleware::EncodeJson
+          # builder.use Faraday::Request::Multipart
+          # builder.use Faraday::Request::UrlEncoded
           # builder.use Faraday::Response::Logger
 
           builder.use Dtime::Connection::Response::RaiseError
