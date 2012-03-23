@@ -13,7 +13,7 @@ module Dtime
       %(#<#{self.class}>)
     end
     def response_body
-      response.body
+      response[:body]
     end
   end # Error
 
