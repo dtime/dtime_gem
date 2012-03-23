@@ -47,6 +47,7 @@ module Dtime
 
   # Raised when Dtime returns the HTTP status code 404
   class ResourceNotFound < Error; end
+  NotFound = ResourceNotFound
 
   # Raised when Dtime returns the HTTP status code 500
   class InternalServerError < Error; end
