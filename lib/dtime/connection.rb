@@ -59,7 +59,7 @@ module Dtime
           # builder.use Faraday::Request::UrlEncoded
           # builder.use Faraday::Response::Logger
 
-          # builder.use Dtime::Connection::Response::RaiseError
+          builder.use Dtime::Connection::Response::RaiseError
           # Dtime::Connection::Response.faraday_build(builder, options)
           builder.use Dtime::Connection::Request::OAuth2, oauth_token if oauth_token?
           builder.use Dtime::Connection::Request::BasicAuth, authentication if basic_authed?

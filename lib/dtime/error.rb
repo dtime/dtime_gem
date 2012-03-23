@@ -1,14 +1,19 @@
 module Dtime
   class Error < StandardError
-    attr_reader :response_message, :response_headers
+    attr_reader :response_message
+    attr_reader :response
 
-    def initialize(message, headers = {})
+    def initialize(message, response = nil)
       @response_message = message
+      @response = response
       super message
     end
 
     def inspect
       %(#<#{self.class}>)
+    end
+    def response_body
+      response.body
     end
   end # Error
 
