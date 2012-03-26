@@ -40,11 +40,14 @@ module Dtime
         !!template
       end
 
+      # Builds with clientside validation enabled. Raises error
+      # if clientside template not available
       def build!(*args)
         raise Dtime::NoTemplate.new("Can't build without a template") unless can_build?
         build(*args)
       end
 
+      # Builds without needing a clientside template
       def build(*args)
         if can_build?
           template.build(*args)
@@ -53,6 +56,7 @@ module Dtime
         end
       end
 
+      # Posts without clientside validation
       # May raise a 422 - unprocessable
       #
       def post(*args)
@@ -60,9 +64,11 @@ module Dtime
         client._post(@root, object)
       end
 
+      # Posts with clientside validation
       # May raise a 422 - unprocessable
-      # May raise TemplateMismatch
+      # May raise TemplateMismatch if clientside template validation error
       #
+      # May raise NoTemplate if no template for clientside validation
       def post!(*args)
         object = build!(*args)
         object.validate!
