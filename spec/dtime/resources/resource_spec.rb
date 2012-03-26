@@ -54,6 +54,19 @@ describe Dtime::Resources::Resource do
       it "can't build" do
         subject.should_not be_can_build
       end
+      it "can't call error build!" do
+        lambda{
+          subject.build!
+        }.should raise_error
+      end
+      it "can still build if ignore errors" do
+        lambda{
+          subject.build
+        }.should_not raise_error
+      end
+      it "can still build if ignore errors" do
+        subject.build == Hashie::Mash.new
+      end
     end
     context 'fetched' do
       before do

@@ -40,9 +40,17 @@ module Dtime
         !!template
       end
 
-      def build(*args)
+      def build!(*args)
         raise Dtime::NoTemplate.new("Can't build without a template") unless can_build?
-        template.build(*args)
+        build(*args)
+      end
+
+      def build(*args)
+        if can_build?
+          template.build(*args)
+        else
+          Hashie::Mash.new(*args)
+        end
       end
 
       # May raise a 422 - unprocessable
@@ -56,7 +64,7 @@ module Dtime
       # May raise TemplateMismatch
       #
       def post!(*args)
-        object = build(*args)
+        object = build!(*args)
         object.validate!
         client._post(@root, object)
       end
