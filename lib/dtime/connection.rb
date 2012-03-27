@@ -73,7 +73,7 @@ module Dtime
       end
       @connection
     end
-    def file_connection
+    def file_connection(opts = {})
       merged_options = header_options.merge(opts)
 
       clear_cached_connection unless opts.empty?
