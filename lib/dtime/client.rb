@@ -50,7 +50,7 @@ module Dtime
     #
     # Pass HTTP methods to the current resource
     #
-    def_instance_delegators :@current_resource, :get, :post, :options, :head, :put, :delete, :patch
+    def_instance_delegators :@current_resource, :get, :post, :options, :head, :put, :delete, :patch, :post_with_file
     #
     # Pass build and template to current resource
     #

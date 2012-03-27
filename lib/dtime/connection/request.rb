@@ -33,7 +33,7 @@ module Dtime
       def _post(path, params={}, opts={})
         _request(:post, path, params, opts)
       end
-      def _post_with_file(path, params={}, opts={})
+      def _post_file(path, params={}, opts={})
         _file_request(:post, path, params, opts)
       end
 
