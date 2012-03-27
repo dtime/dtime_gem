@@ -68,8 +68,7 @@ module Dtime
       # May raise a 422 - unprocessable
       #
       def post_with_file(*args)
-        object = build(*args)
-        client._post_file(@root, object)
+        client._post_file(@root, args.first)
       end
 
       # Posts with clientside validation

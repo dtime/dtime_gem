@@ -56,7 +56,7 @@ module Dtime
           when *(METHODS - METHODS_WITH_BODIES)
             request.url(path, params)
           when *METHODS_WITH_BODIES
-            request.body = MultiJson.encode(params) unless params.empty?
+            request.body = params unless params.empty?
           end
         end
         self.last_response = response.body
