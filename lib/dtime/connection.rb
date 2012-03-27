@@ -96,6 +96,8 @@ module Dtime
 
           builder.adapter adapter
         end
+      end
+      @file_connection
     end
 
   end # Connection
