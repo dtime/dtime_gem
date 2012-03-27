@@ -64,6 +64,14 @@ module Dtime
         client._post(@root, object)
       end
 
+      # Posts without clientside validation
+      # May raise a 422 - unprocessable
+      #
+      def post_with_file(*args)
+        object = build(*args)
+        client._post_file(@root, object)
+      end
+
       # Posts with clientside validation
       # May raise a 422 - unprocessable
       # May raise TemplateMismatch if clientside template validation error

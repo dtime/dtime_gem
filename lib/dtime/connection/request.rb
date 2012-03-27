@@ -33,6 +33,9 @@ module Dtime
       def _post(path, params={}, opts={})
         _request(:post, path, params, opts)
       end
+      def _post_with_file(path, params={}, opts={})
+        _file_request(:post, path, params, opts)
+      end
 
       def _put(path, params={}, opts={})
         _request(:put, path, params, opts)
@@ -40,6 +43,24 @@ module Dtime
 
       def _delete(path, params={}, opts={})
         _request(:delete, path, params, opts)
+      end
+      def _file_request(method, path, params, opts)
+        path = get_path_for(path)
+        if !METHODS.include?(method)
+          raise ArgumentError, "unkown http method: #{method}"
+        end
+        puts "EXECUTED: #{method} - #{path} with #{params} and #{opts}"
+
+        response = file_connection(opts).run_request(method, path, params, nil) do |request|
+          case method.to_sym
+          when *(METHODS - METHODS_WITH_BODIES)
+            request.url(path, params)
+          when *METHODS_WITH_BODIES
+            request.body = MultiJson.encode(params) unless params.empty?
+          end
+        end
+        self.last_response = response.body
+        response.body
       end
 
       def _request(method, path, params, opts)
