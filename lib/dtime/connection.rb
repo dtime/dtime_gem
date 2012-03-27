@@ -56,7 +56,7 @@ module Dtime
 
           builder.use FaradayMiddleware::ParseJson
           builder.use FaradayMiddleware::EncodeJson
-          # builder.use Faraday::Request::Multipart
+          builder.use Faraday::Request::Multipart
           # builder.use Faraday::Request::UrlEncoded
           # builder.use Faraday::Response::Logger
 
