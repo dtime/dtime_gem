@@ -76,7 +76,7 @@ module Dtime
     def file_connection(opts = {})
       merged_options = header_options.merge(opts)
 
-      clear_cached_connection unless opts.empty?
+      # clear_cached_connection unless opts.empty?
       @file_connection ||= begin
         Faraday.new(merged_options) do |builder|
           builder.use Dtime::Connection::Response::RaiseError
