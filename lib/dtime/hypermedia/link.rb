@@ -9,7 +9,8 @@ module Dtime
       def href
         opts = self.fetch('uri_opts', {})
         @template ||= Addressable::Template.new(self.fetch('href'))
-        raise ArgumentError.new("Uri options not provided for this template") unless (@template.keys - opts.keys).size == 0
+        missing_keys = (@template.keys - opts.keys)
+        raise ArgumentError.new("Uri options not provided for this template - #{missing_keys.inspect}") unless missing_keys.size == 0
         @template.expand(opts).to_s
       end
       def to_template

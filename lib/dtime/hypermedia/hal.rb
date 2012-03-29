@@ -14,7 +14,7 @@ module Dtime
         super
 
         # It is an argument error to create a hal hash with an empty links array
-        raise ArgumentError("I should have a rel self in #{self._links.inspect}") if self._links? && !self.link_for('self')
+        raise ArgumentError.new("I should have a rel self in #{self._links.inspect}") if self._links? && !self.link_for('self')
 
         # Turn tmpl into template
       end
