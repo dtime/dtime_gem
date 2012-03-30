@@ -28,7 +28,7 @@ module Dtime
       end
 
       def result
-        @response
+        @response.result if @response
       end
 
       def get_result
