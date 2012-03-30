@@ -68,7 +68,7 @@ module Dtime
         if !METHODS.include?(method)
           raise ArgumentError, "unkown http method: #{method}"
         end
-        puts "EXECUTED: #{method} - #{path} with #{params} and #{opts}"
+        # puts "EXECUTED: #{method} - #{path} with #{params} and #{opts}"
 
         response = connection(opts).run_request(method, path, params, nil) do |request|
           case method.to_sym

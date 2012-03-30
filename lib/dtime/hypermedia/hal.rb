@@ -33,6 +33,12 @@ module Dtime
           l = Dtime::Hypermedia::Link.new(self[:_links][rel].merge(rel: rel))
           l.uri_opts = opts
           l
+        elsif rel =~ /(.+)\.(.+)/
+          if l = self[:_embedded][$1][:_links][$2]
+            l = Dtime::Hypermedia::Link.new(l.merge(rel: rel))
+            l.uri_opts = opts
+            l
+          end
         end
       end
 

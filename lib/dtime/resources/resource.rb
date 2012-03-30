@@ -15,15 +15,31 @@ module Dtime
         end
       end
 
+      def follow(*args)
+        self.options
+        client.follow(*args)
+      end
+
 
       # Get may raise a 404
       def get
         @response = client._get(@root)
-      end
-      def options
-        @response = client._options(@root)
+        self
       end
 
+      def result
+        @response
+      end
+
+      def get_result
+        self.get unless @response
+        self.result
+      end
+
+      def options
+        @response = client._options(@root)
+        self
+      end
 
 
       def template(force = false)
@@ -63,6 +79,15 @@ module Dtime
         object = build(*args)
         client._post(@root, object)
       end
+      def delete(*args)
+        client._delete(@root)
+      end
+      def put(*args)
+        object = build(*args)
+        client._put(@root, object)
+      end
+
+
 
       # Posts without clientside validation
       # May raise a 422 - unprocessable

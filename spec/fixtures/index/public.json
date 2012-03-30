@@ -9,5 +9,14 @@
     "user" : {
       "href": "https://api.dtime.com/user"
     }
+  },
+  "_embedded": {
+    "user" : {
+      "_links" : {
+        "followers" : {
+          "href": "https://api.dtime.com/user/followers"
+        }
+      }
+    }
   }
 }

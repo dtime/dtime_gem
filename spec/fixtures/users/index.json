@@ -3,8 +3,13 @@
     "self" : {
       "href": "https://api.dtime.com/users",
       "name": "users"
+    },
+    "foobar" : {
+      "href": "https://api.dtime.com/users",
+      "name": "foobar"
     }
   },
+
   "_template":{
     "data":[
       {"name":"username","value":null,"type":"string","required":true,"prompt":"Username"},

@@ -54,6 +54,9 @@ describe Dtime::Connection::Request do
     it "sets the last response" do
       dtime.last_response.should_not be_nil
     end
+    it "link_for method can translate embedded" do
+      dtime.link_for_rel('user.followers').href.should =~ /\/user\/followers$/
+    end
     it "has a link_for(rel) method" do
       dtime.link_for_rel('documentation').href.should =~ /\/docs$/
       dtime.link_for_rel('user').href.should =~ /\/user$/

@@ -64,6 +64,11 @@ describe Dtime::Resources::Resource do
           subject.build
         }.should_not raise_error
       end
+      it "responds to get_result by chaining get and result" do
+        subject.should_receive :get
+        subject.should_receive :result
+        subject.get_result
+      end
       it "can still build if ignore errors" do
         subject.build == Hashie::Mash.new
       end
@@ -86,6 +91,12 @@ describe Dtime::Resources::Resource do
       end
       it 'can build an object' do
         subject.build()
+      end
+      it "responds to follow" do
+        subject.follow("foobar").should be_a(Dtime::Resources::Resource)
+      end
+      it "responds to get_result" do
+        subject.get_result.should == subject.result
       end
     end
   end
