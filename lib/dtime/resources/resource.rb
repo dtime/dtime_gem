@@ -77,14 +77,17 @@ module Dtime
       #
       def post(*args)
         object = build(*args)
-        client._post(@root, object)
+        @response = client._post(@root, object)
+        self
       end
       def delete(*args)
-        client._delete(@root)
+        @response = client._delete(@root)
+        self
       end
       def put(*args)
         object = build(*args)
-        client._put(@root, object)
+        @response = client._put(@root, object)
+        self
       end
 
 
@@ -93,7 +96,8 @@ module Dtime
       # May raise a 422 - unprocessable
       #
       def post_with_file(*args)
-        client._post_file(@root, args.first)
+        @response = client._post_file(@root, args.first)
+        self
       end
 
       # Posts with clientside validation
@@ -104,7 +108,8 @@ module Dtime
       def post!(*args)
         object = build!(*args)
         object.validate!
-        client._post(@root, object)
+        @response = client._post(@root, object)
+        self
       end
 
     end
