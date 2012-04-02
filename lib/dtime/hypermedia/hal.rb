@@ -32,12 +32,14 @@ module Dtime
         name = opts.delete(:name)
         if l = self[:_links][rel]
           l = l.detect{|lk| lk[:name] == name} if l.is_a?(Array)
+          return nil unless l
           l = Dtime::Hypermedia::Link.new(l.merge(rel: rel))
           l.uri_opts = opts
           l
         elsif rel =~ /(.+)\.(.+)/
           if l = self[:_embedded][$1][:_links][$2]
             l = l.detect{|lk| lk[:name] == name} if l.is_a?(Array)
+            return nil unless l
             l = Dtime::Hypermedia::Link.new(l.merge(rel: rel))
             l.uri_opts = opts
             l

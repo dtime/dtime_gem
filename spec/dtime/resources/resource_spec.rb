@@ -101,6 +101,11 @@ describe Dtime::Resources::Resource do
       it "follow follows first matching link with name" do
         subject.follow("foobars", :name => "foobar").root.href.should =~ /users$/
       end
+      it "follow follows first matching link with name" do
+        lambda{
+          subject.follow("foobars", :name => "banana")
+        }.should raise_error(Dtime::Error)
+      end
       it "responds to get_result" do
         subject.get_result.should == subject.result
       end
