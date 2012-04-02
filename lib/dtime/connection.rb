@@ -67,7 +67,7 @@ module Dtime
 
           builder.use Dtime::Connection::Response::Helpers::Middleware
           builder.use Dtime::Connection::Response::Halify
-
+          builder.use FaradayMiddleware::RackCompatible, Rack::Cache::Context, caching_options if self.caching_options
           builder.adapter adapter
         end
       end

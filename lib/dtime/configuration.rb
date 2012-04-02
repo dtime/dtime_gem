@@ -14,6 +14,7 @@ module Dtime
       :connection_options,
       :verbose_errors,
       :login,
+      :caching_options,
       :password
     ].freeze
 
@@ -47,6 +48,9 @@ module Dtime
     # By default uses the Faraday connection options if none is set
     DEFAULT_CONNECTION_OPTIONS = {}
 
+    # Caching options to use for rack cache (default to nil)
+    DEFAULT_CACHING_OPTIONS = nil
+
     attr_accessor *VALID_CONFIG_KEYS
 
     # Convenience method to allow for global setting of configuration options
@@ -73,6 +77,7 @@ module Dtime
       self.mime_type          = DEFAULT_MIME_TYPE
       self.login              = DEFAULT_LOGIN
       self.password           = DEFAULT_PASSWORD
+      self.caching_options    = DEFAULT_CACHING_OPTIONS
       self.verbose_errors     = false
       self
     end

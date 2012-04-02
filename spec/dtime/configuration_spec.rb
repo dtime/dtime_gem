@@ -18,6 +18,9 @@ describe Dtime::Configuration do
     it "have a cached connection " do
       @dtime.should be_cached_connection
     end
+    it "allow setting caching_options" do
+      @dtime.caching_options = {}
+    end
 
     it "resets cached connection when oauth_token changed" do
       @dtime.oauth_token = 'foobar'
