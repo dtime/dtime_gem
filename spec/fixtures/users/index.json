@@ -7,7 +7,15 @@
     "foobar" : {
       "href": "https://api.dtime.com/users",
       "name": "foobar"
-    }
+    },
+    "foobars" : [
+      {"href": "https://api.dtime.com/users"},
+      {"href": "https://api.dtime.com/users/2"},
+      {"href": "https://api.dtime.com/users","name": "foobar"},
+      {"href": "https://api.dtime.com/users","name": "baz"},
+      {"href": "https://api.dtime.com/users/2","name": "foobar"},
+      {"href": "https://api.dtime.com/users/3"}
+    ]
   },
 
   "_template":{

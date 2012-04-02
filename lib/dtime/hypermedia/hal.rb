@@ -29,14 +29,15 @@ module Dtime
       # Creates a link object for a given rel, or returns nil if
       # one does not exist
       def link_for(rel, opts = {})
-        if self[:_links][rel]
-          l = l.first if l.is_a?(Array)
-          l = Dtime::Hypermedia::Link.new(self[:_links][rel].merge(rel: rel))
+        name = opts.delete(:name)
+        if l = self[:_links][rel]
+          l = l.detect{|lk| lk[:name] == name} if l.is_a?(Array)
+          l = Dtime::Hypermedia::Link.new(l.merge(rel: rel))
           l.uri_opts = opts
           l
         elsif rel =~ /(.+)\.(.+)/
           if l = self[:_embedded][$1][:_links][$2]
-            l = l.first if l.is_a?(Array)
+            l = l.detect{|lk| lk[:name] == name} if l.is_a?(Array)
             l = Dtime::Hypermedia::Link.new(l.merge(rel: rel))
             l.uri_opts = opts
             l

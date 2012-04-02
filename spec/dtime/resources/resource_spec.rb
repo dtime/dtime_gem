@@ -95,6 +95,12 @@ describe Dtime::Resources::Resource do
       it "responds to follow" do
         subject.follow("foobar").should be_a(Dtime::Resources::Resource)
       end
+      it "follow follows first matching link" do
+        subject.follow("foobars").root.href.should =~ /users$/
+      end
+      it "follow follows first matching link with name" do
+        subject.follow("foobars", :name => "foobar").root.href.should =~ /users$/
+      end
       it "responds to get_result" do
         subject.get_result.should == subject.result
       end
