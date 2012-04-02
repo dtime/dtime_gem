@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'faraday_middleware', '~> 0.8.0'
   s.add_dependency 'multi_json', '~> 1.1.0'
   s.add_dependency 'oauth2', '~> 0.5.0'
+  s.add_dependency 'addressable'
 
   s.add_development_dependency 'rspec', '~> 2.8.0'
   s.add_development_dependency 'commander'
