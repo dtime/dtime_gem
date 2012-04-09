@@ -19,8 +19,12 @@ module Dtime
             Dtime::Hypermedia::Hal.new({result: false})
           else
             if body
-              body = ::MultiJson.decode(body)
-              Dtime::Hypermedia::Hal.new(body)
+              begin
+                body = ::MultiJson.decode(body)
+                Dtime::Hypermedia::Hal.new(body)
+              rescue MultiJson::DecodeError => e
+                Dtime::Hypermedia::Hal.new(result: body)
+              end
             else
               Dtime::Hypermedia::Hal.new({result: ''})
             end
