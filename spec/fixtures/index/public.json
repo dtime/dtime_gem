@@ -3,17 +3,17 @@
     "self": {
       "href": "https://api.dtime.com/"
     },
-    "documentation" : {
+    "dtime:documentation" : {
       "href": "https://api.dtime.com/docs"
     },
-    "user" : {
+    "dtime:user" : {
       "href": "https://api.dtime.com/user"
     }
   },
   "_embedded": {
-    "user" : {
+    "dtime:user" : {
       "_links" : {
-        "followers" : {
+        "dtime:followers" : {
           "href": "https://api.dtime.com/user/followers"
         }
       }

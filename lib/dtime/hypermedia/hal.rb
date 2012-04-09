@@ -30,14 +30,15 @@ module Dtime
       # one does not exist
       def link_for(rel, opts = {})
         name = opts.delete(:name)
-        if l = self[:_links][rel]
+        if l = (self[:_links][rel] || self[:_links]["dtime:#{rel}"])
           l = l.detect{|lk| lk[:name] == name} if l.is_a?(Array)
           return nil unless l
           l = Dtime::Hypermedia::Link.new(l.merge(rel: rel))
           l.uri_opts = opts
           l
         elsif rel =~ /(.+)\.(.+)/
-          if l = self[:_embedded][$1][:_links][$2]
+          if l = (self[:_embedded][$1] || self[:_embedded]["dtime:#{$1}"])
+            l = (l[:_links][$2] || l[:_links]["dtime:#{$2}"])
             l = l.detect{|lk| lk[:name] == name} if l.is_a?(Array)
             return nil unless l
             l = Dtime::Hypermedia::Link.new(l.merge(rel: rel))

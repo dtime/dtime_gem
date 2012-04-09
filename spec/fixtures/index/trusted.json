@@ -3,10 +3,10 @@
     "self": {
       "href": "https://api.dtime.com/"
     },
-    "documentation" : {
+    "dtime:documentation" : {
       "href": "https://api.dtime.com/docs"
     },
-    "users" : {
+    "dtime:users" : {
       "href": "https://api.dtime.com/users"
     }
   }

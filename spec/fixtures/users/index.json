@@ -4,11 +4,11 @@
       "href": "https://api.dtime.com/users",
       "name": "users"
     },
-    "foobar" : {
+    "dtime:foobar" : {
       "href": "https://api.dtime.com/users",
       "name": "foobar"
     },
-    "foobars" : [
+    "dtime:foobars" : [
       {"href": "https://api.dtime.com/users"},
       {"href": "https://api.dtime.com/users/2"},
       {"href": "https://api.dtime.com/users","name": "foobar"},
