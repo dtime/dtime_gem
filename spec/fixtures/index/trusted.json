@@ -9,5 +9,8 @@
     "dtime:users" : {
       "href": "https://api.dtime.com/users"
     }
-  }
+  },
+  "result": [
+    {"name": "foo"}
+  ]
 }

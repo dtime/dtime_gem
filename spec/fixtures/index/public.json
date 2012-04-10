@@ -10,6 +10,9 @@
       "href": "https://api.dtime.com/user"
     }
   },
+  "result": [
+    {"name": "foo"}
+  ],
   "_embedded": {
     "dtime:user" : {
       "_links" : {

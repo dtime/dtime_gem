@@ -25,5 +25,9 @@
       {"name":"password","value":null,"type":"password","required":true},
       {"name":"password_confirmation","value":null,"type":"password_confirmation","required":true}
     ]
-  }
+  },
+  "result": [
+    {"name": "foo"}
+  ]
+
 }

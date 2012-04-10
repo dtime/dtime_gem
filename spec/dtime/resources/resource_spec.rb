@@ -106,6 +106,9 @@ describe Dtime::Resources::Resource do
           subject.follow("foobars", :name => "banana")
         }.should raise_error(Dtime::Error)
       end
+      it "responds to get_result by chaining get and result" do
+        subject.get_result.should === [Hashie::Mash.new(name: 'foo')]
+      end
       it "responds to get_result" do
         subject.get_result.should == subject.result
       end

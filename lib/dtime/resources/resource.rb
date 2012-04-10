@@ -28,11 +28,7 @@ module Dtime
       end
 
       def result
-        if @reponse && @reponse.respond_to?(:has_key?) && @response.has_key?(:result)
-          @response.result  ? @response.result : @response
-        else
-          @response
-        end
+        @response.result.is_a?(Array) ?  @response.result : @response
       end
 
       def get_result
