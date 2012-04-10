@@ -29,6 +29,11 @@ module Dtime
 
       def result
         @response.result if @response
+        if @reponse && @response.respond_to?(:result)
+          @response.result.is_a?(Array)  ? @response.result : @response
+        else
+          @response
+        end
       end
 
       def get_result
