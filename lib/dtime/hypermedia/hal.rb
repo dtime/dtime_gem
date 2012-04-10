@@ -49,19 +49,6 @@ module Dtime
       end
 
 
-
-      # The body of a result should be wrapped into a result object.
-      # If it is and the requested key is defined in it,
-      # we pass any method missing on to result
-      def method_missing(name, *args)
-        if self.has_key?(name)
-          super
-        elsif self.has_key?(:result) && self[:result].respond_to?(:has_key?) && self[:result].has_key?(name)
-          self[:result].send(name, *args)
-        else
-          super
-        end
-      end
     end
   end
 end
