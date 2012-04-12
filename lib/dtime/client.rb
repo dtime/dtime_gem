@@ -36,8 +36,10 @@ module Dtime
     attr_accessor :current_resource
 
     # Navigates home, returns self for chaining with next call
-    def root
-      self.home
+    def root(clear = false)
+      @cached_root = nil if clear
+      @cached_root ||= self.home
+      @current_resource = @cached_root
       self
     end
 
