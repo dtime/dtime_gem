@@ -23,6 +23,7 @@ module Dtime
                 body = ::MultiJson.decode(body)
                 Dtime::Hypermedia::Hal.new(body)
               rescue MultiJson::DecodeError => e
+                warn "Decode error"
                 Dtime::Hypermedia::Hal.new(result: body)
               end
             else
