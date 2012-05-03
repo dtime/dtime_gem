@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'hashie', '~> 1.2.0'
   s.add_dependency 'faraday', '~> 0.8.0.rc2'
   s.add_dependency 'rack'
+  s.add_dependency 'net-http-persistent'
   s.add_dependency 'rack-cache'
   s.add_dependency 'faraday_middleware', '~> 0.8.0'
   s.add_dependency 'multi_json', '~> 1.1.0'
