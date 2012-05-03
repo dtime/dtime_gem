@@ -19,7 +19,7 @@ module Dtime
     ].freeze
 
     # Other adapters are :typhoeus, :patron, :em_synchrony, :excon, :test
-    DEFAULT_ADAPTER = :net_http_persistent
+    DEFAULT_ADAPTER = :net_http
 
     # By default, set to dtime public api
     DEFAULT_CLIENT_ID = '4ee43e9abce748bebf000004'.freeze
