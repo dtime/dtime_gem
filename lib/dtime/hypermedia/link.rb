@@ -8,7 +8,9 @@ module Dtime
     class Link < ::Hashie::Mash
       def href
         opts = self.fetch('uri_opts', {})
-        @template ||= Addressable::Template.new(self.fetch('href'))
+        tmpl = self.fetch("href-template", nil)
+        tmpl ||= self.fetch('href')
+        @template ||= Addressable::Template.new(tmpl)
         missing_keys = (@template.keys - opts.keys)
         raise ArgumentError.new("Uri options not provided for this template - #{missing_keys.inspect}") unless missing_keys.size == 0
         @template.expand(opts).to_s

@@ -8,6 +8,9 @@
     },
     "dtime:user" : {
       "href": "https://api.dtime.com/user"
+    },
+    "dtime:user:id" : {
+      "href-template": "https://api.dtime.com/users/{id}"
     }
   },
   "result": [
