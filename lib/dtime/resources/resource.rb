@@ -80,6 +80,11 @@ module Dtime
         @response = client._post(@root, object)
         self
       end
+      def patch(*args)
+        object = build(*args)
+        @response = client._patch(@root, object)
+        self
+      end
       def delete(*args)
         @response = client._delete(@root)
         self
