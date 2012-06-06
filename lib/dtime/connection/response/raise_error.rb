@@ -16,6 +16,8 @@ module Dtime
             raise Dtime::Forbidden.new(response_message(env), env)
           when 404
             raise Dtime::ResourceNotFound.new(response_message(env), env)
+          when 405
+            raise Dtime::MethodNotAllowed.new(response_message(env), env)
           when 422
             raise Dtime::UnprocessableEntity.new(response_message(env), env)
           when 500
