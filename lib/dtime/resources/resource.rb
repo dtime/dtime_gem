@@ -86,7 +86,7 @@ module Dtime
         self
       end
       def delete(*args)
-        @response = client._delete(@root)
+        @response = client._delete(@root, args.first)
         self
       end
       def put(*args)
