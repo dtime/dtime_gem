@@ -11,7 +11,7 @@ describe Dtime::Hypermedia::Link do
   end
   context 'with uri template and no uri_opts' do
     subject {
-      Dtime::Hypermedia::Link.new({rel: 'self', "href-template" => 'http://www.example.com/{user_id}'})
+      Dtime::Hypermedia::Link.new({rel: 'self', "href" => 'http://www.example.com/{user_id}'})
     }
     it 'raises error on href' do
       lambda{ subject.href }.should raise_error
@@ -27,7 +27,7 @@ describe Dtime::Hypermedia::Link do
   end
   context 'with uri template and uri_opts' do
     subject {
-      Dtime::Hypermedia::Link.new({rel: 'self', "href-template" => 'http://www.example.com/{user_id}/{banana}', uri_opts: {'user_id' => 'foo', :banana => 'bar'}})
+      Dtime::Hypermedia::Link.new({rel: 'self', "href" => 'http://www.example.com/{user_id}/{banana}', uri_opts: {'user_id' => 'foo', :banana => 'bar'}})
     }
     it 'returns href' do
       subject.href.should == 'http://www.example.com/foo/bar'

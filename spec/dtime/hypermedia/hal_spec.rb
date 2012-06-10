@@ -18,14 +18,10 @@ describe Dtime::Hypermedia::Hal do
     subject {
       Dtime::Hypermedia::Hal.new({_links: {
       self: {href: 'foobar'},
-      foo: {"href-template" => 'foobar/{baz}'}
     }})
     }
     it 'has self link' do
       subject.link_for('self').should be_a(Dtime::Hypermedia::Link)
-    end
-    it 'has foo link' do
-      subject.link_for('foo').should be_a(Dtime::Hypermedia::Link)
     end
   end
   context 'given template' do
