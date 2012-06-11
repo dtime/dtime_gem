@@ -28,7 +28,7 @@ module Dtime
       end
 
       def result
-        if(@response.has_key?("embedded") && @response._embedded.item.is_a?(Array))
+        if(@response.has_key?("_embedded") && @response._embedded.item.is_a?(Array))
           @response._embedded.item
         else
           (@response.result.is_a?(Array) ?  @response.result : @response)
