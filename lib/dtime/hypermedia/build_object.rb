@@ -19,7 +19,7 @@ module Dtime
       end
 
       def validate!
-        @_template.fields.each do |f|
+        @_template.fields.each do |k, f|
           validate_field(f)
         end
       end

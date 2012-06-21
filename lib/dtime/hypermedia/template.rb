@@ -10,8 +10,8 @@ module Dtime
 
       def build_from_template(hash = {})
 
-        defaults = self.fetch('data', {}).inject({}) do |ret, field|
-          ret[field.name] = field.value
+        defaults = self.fetch('data', {}).inject({}) do |ret, (name, field)|
+          ret[name] = field.value
           ret
         end
 

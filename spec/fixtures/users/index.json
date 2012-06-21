@@ -19,12 +19,12 @@
   },
 
   "_template":{
-    "data":[
-      {"name":"username","value":null,"type":"string","required":true,"prompt":"Username"},
-      {"name":"email","value":null,"type":"email","required":true},
-      {"name":"password","value":null,"type":"password","required":true},
-      {"name":"password_confirmation","value":null,"type":"password_confirmation","required":true}
-    ]
+    "data":{
+      "username":{"name":"username","value":null,"type":"string","required":true,"prompt":"Username"},
+      "email":{"name":"email","value":null,"type":"email","required":true},
+      "password":{"name":"password","value":null,"type":"password","required":true},
+      "password_confirmation":{"name":"password_confirmation","value":null,"type":"password_confirmation","required":true}
+    }
   },
   "result": [
     {"name": "foo"}
