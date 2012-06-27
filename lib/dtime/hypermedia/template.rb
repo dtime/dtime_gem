@@ -11,7 +11,13 @@ module Dtime
       def build_from_template(hash = {})
 
         defaults = self.fetch('data', {}).inject({}) do |ret, (name, field)|
-          ret[name] = field.value
+          if field.respond_to?(:value)
+            ret[name] = field.value
+          elsif field.respond_to?(:default)
+            ret[name] = field.default
+          else
+            ret[name] = nil
+          end
           ret
         end
 
