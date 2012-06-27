@@ -41,6 +41,38 @@ module Dtime
       self
     end
 
+    # Navigates home, returns self for chaining with next call
+    def sitemap
+      self.root
+      self.follow('dtime:sitemap')
+      self.get
+      self
+    end
+
+    # Navigates home, returns self for chaining with next call
+    def dashboard
+      self.root
+      self.follow('dtime:dashboard')
+      self.get
+      self
+    end
+
+    # Navigates to admin dashboard, returns self for chaining with next call
+    def admin
+      self.sitemap
+      self.follow('dtime:dashboard:admin')
+      self.get
+      self
+    end
+
+    # Navigates to developer dashboard, returns self for chaining with next call
+    def developers
+      self.sitemap
+      self.follow('dtime:dashboard:developers')
+      self.get
+      self
+    end
+
     def home
       @current_resource = follow(Dtime::Hypermedia::Link.new(rel: 'root', href: self.endpoint))
       self.get
