@@ -55,7 +55,7 @@ module Dtime
         Faraday.new(merged_options) do |builder|
           builder.use Dtime::Connection::Response::RaiseError
 
-          builder.use FaradayMiddleware::ParseJson
+          builder.use FaradayMiddleware::ParseJson, :preserve_raw => true
           builder.use FaradayMiddleware::EncodeJson
           # builder.use Faraday::Request::Multipart
           # builder.use Faraday::Request::UrlEncoded
@@ -66,7 +66,7 @@ module Dtime
           builder.use Dtime::Connection::Request::BasicAuth, authentication if basic_authed?
 
           builder.use Dtime::Connection::Response::Helpers::Middleware
-          builder.use Dtime::Connection::Response::Halify
+          builder.use Dtime::Connection::Response::Halify, :preserve_raw => true
           builder.use FaradayMiddleware::RackCompatible, Rack::Cache::Context, caching_options if self.caching_options
           builder.adapter adapter
         end
@@ -81,9 +81,9 @@ module Dtime
         Faraday.new(merged_options) do |builder|
           builder.use Dtime::Connection::Response::RaiseError
 
-          builder.use FaradayMiddleware::ParseJson
+          builder.use FaradayMiddleware::ParseJson, :preserve_raw => true
           builder.use Dtime::Connection::Response::Helpers::Middleware
-          builder.use Dtime::Connection::Response::Halify
+          builder.use Dtime::Connection::Response::Halify, :preserve_raw => true
 
           # builder.use FaradayMiddleware::EncodeJson
           builder.use Faraday::Request::Multipart

@@ -1,12 +1,13 @@
 # encoding: utf-8
 
 require 'faraday'
+require 'faraday_middleware/response_middleware'
 require 'dtime/hypermedia/hal'
 
 module Dtime
   module Connection
     module Response
-      class Halify< Faraday::Response::Middleware
+      class Halify< FaradayMiddleware::ResponseMiddleware
         dependency 'multi_json'
 
         def parse(body)
