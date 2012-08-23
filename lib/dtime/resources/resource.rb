@@ -35,6 +35,10 @@ module Dtime
         end
       end
 
+      def raw
+        @response.env[:raw_body]
+      end
+
       def get_result
         self.get unless @response
         self.result
