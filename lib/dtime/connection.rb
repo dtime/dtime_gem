@@ -31,7 +31,7 @@ module Dtime
     def header_options() # :nodoc:
       {
         :headers => {
-          'Accept'       => '*/*', #accepts,
+          'Accept'       => 'application/hal+json, application/json, */*', #accepts,
           'User-Agent'   => user_agent
         },
         :ssl => { :verify => false },
