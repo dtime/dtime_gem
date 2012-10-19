@@ -22,8 +22,8 @@ module Dtime
 
 
       # Get may raise a 404
-      def get
-        @response = client._get(@root)
+      def get(opts = {})
+        @response = client._get(@root, opts)
         self
       end
 
